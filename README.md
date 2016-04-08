@@ -37,6 +37,15 @@ This will open up /dev/fernvale, load usb-loader.bin as a stage 1 bootloader,
 and then load (and jump to) firmware.bin as stage 2.  Optionally, you can add
 a stage 3 file by specifying it as an additional argument.
 
+Many 3rd-party devices enter bootloader mode only for a short window (~1s)
+after being connected to USB. A device almost certainly should be "off". Some
+devices require that battery is removed, while some - don't. To accommodate
+such cases, there's -w (wait) option. Run fernly-usb-loader, and only
+then connect a device to USB. This will allow to try various combinations
+mentioned above with greater comfort (you need to disconnect and poweroff
+device after each try, and restart fernly-usb-loader).
+
+    ./build/fernly-usb-loader -w -s /dev/ttyUSB0 ./build/usb-loader.bin ./build/firmware.bin
 
 Linux Notes
 -----------
@@ -91,6 +100,8 @@ That is, send the following packet:
 
 | 00 00 |
 
+See ROM-BACKUP.txt for user-level instructions how to backup/restore
+FlashROM of your device.
 
 Licensing
 ---------
@@ -139,7 +150,7 @@ Memory Map
 | 0xa0070000 | ========== | ========== | DMA Controller block                |
 | 0xa0080000 | 0xa008005c |       0x5c | UART1 block                         |
 | 0xa0090000 | 0xa009005c |       0x5c | UART2 block                         |
-| 0xa00a0000 | ?????????? | ?????????? | ??????????????????????????????????? |
+| 0xa00a0000 | 0xa00a0000 |       0x5c | UART3 block                         |
 | 0xa00b0000 | 0xa00b006c |       0x6c | Bluetooth interface block           |
 | 0xa00c0000 | 0xa00c002c |       0x2c | General purpose timer block         |
 | 0xa00d0000 | 0xa00d0024 |       0x24 | Keypad scanner block                |
@@ -164,6 +175,7 @@ Memory Map
 | 0xa0240000 | ?????????? | ?????????? | NAND flash block                    |
 | 0xa0260000 | 0xa0260058 |       0x58 | FSPI (internal FM radio) block      |
 | 0xa0270000 | 0xa0270098 |       0x98 | SD2 block                           |
+| 0xa02A0000 | 0xa02A0074 |       0x74 | I2C2 block 1.8v                     |
 | 0xa0400000 | ?????????? | ?????????? | IMGDMA block                        |
 | 0xa0410000 | ?????????? | ?????????? | IDP RESZ CR2                        |
 | 0xa0420000 | 0xa04201d8 |     0x01d8 | CAM interface block                 |
@@ -192,5 +204,5 @@ Memory Map
 | 0xa0900000 | 0xa0900240 | ?????????? | USB block                           |
 | 0xa0910000 | ?????????? | ?????????? | ??????????????????????????????????? |
 | 0xa0920000 | ?????????? | ?????????? | AHB DMA block                       |
-| 0xa3300000 | 0xa33a0000 | ?????????? | Bluetooth things                    |
+| 0xa3300000 | 0xa33a0000 |      0x6c? | Bluetooth things                    |
 | 0xfff00000 | 0xffffffff |   0x100000 | Boot ROM, mirrored each 64K (its real size) |

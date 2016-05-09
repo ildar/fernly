@@ -1,11 +1,14 @@
 include mkenv.mk
 include magic.mk
 
+
 CFLAGS = -march=armv5te -mfloat-abi=soft -Wall \
 	 -Os -ggdb -Iinclude -marm -fno-stack-protector
 AFLAGS = 
 
-LDFLAGS = --nostdlib -T fernvale.ld
+LDFLAGS = --nostdlib
+LSCRIPT = fernvale.ld
+
 LIBS = lib/libgcc-armv5.a
 
 SRC_C = \
@@ -57,9 +60,10 @@ $(BUILD)/usb-loader.bin: $(BUILD)/usb-loader.o
 HEADER_BUILD = $(BUILD)/genhdr
 $(BUILD)/firmware.bin: $(BUILD)/firmware.elf
 	$(OBJCOPY) -S -O binary $(BUILD)/firmware.elf $@
+	$(OBJDUMP) -d -t -C  $(BUILD)/firmware.elf >  $(BUILD)/asm_fimware.txt
 
 $(BUILD)/firmware.elf: $(OBJ)
-	$(LD) $(LDFLAGS) --entry=reset_handler -o $@ $(OBJ) $(LIBS)
+	$(LD) $(LDFLAGS) -T $(LSCRIPT) --entry=reset_handler -o $@ $(OBJ) $(LIBS)
 
 $(OBJ): $(HEADER_BUILD)/generated.h | $(OBJ_DIRS)
 $(HEADER_BUILD)/generated.h: | $(HEADER_BUILD)
@@ -79,3 +83,5 @@ test: all
 shell: all
 	novena-usb-hub -d u1 ; sleep 1; novena-usb-hub -e u1 ; sleep 2
 	$(BUILD)/fernly-usb-loader -s /dev/fernvale $(BUILD)/usb-loader.bin $(BUILD)/firmware.bin
+	
+include Makefile.mt2502

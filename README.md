@@ -123,6 +123,7 @@ the "runtime exception".
 Memory Map
 ----------
 
+   
 | 0x00000000 | 0x0fffffff | 0x0fffffff | PSRAM map, repeated and mirrored at 0x00800000 offsets               |
 | ---------- | ---------- | ---------- | ----------------------------------- |
 | 0x10000000 | 0x1fffffff | 0x0fffffff | Memory-mapped SPI chip              |

@@ -1,0 +1,51 @@
+LSCRIPT_2 = mt2502a.ld
+
+SRC2_C = \
+	bionic.c \
+	cmd-hex.c \
+	cmd-irq.c \
+	cmd-peekpoke.c \
+	cmd-reboot.c \
+	cmd-sleep.c \
+	cmd-spi.c \
+	cmd-led.c \
+	cmd-load.c \
+	cmd-bl.c \
+	cmd-lcd.c \
+	cmd-keypad.c \
+	emi.c \
+	irq.c \
+	lcd.c \
+	main_mt2502.c \
+	scriptic.c \
+	serial.c \
+	spi.c \
+	utils.c \
+	vectors.c \
+	vsprintf.c \
+	led.c
+
+SRC2_S = \
+	scriptic/set-plls.S \
+	scriptic/enable-psram.S \
+	scriptic/spi.S \
+	scriptic/spi-blockmode.S \
+	scriptic/keypad.S \
+	start2.S
+
+OBJ2 = $(addprefix $(BUILD)/, $(SRC2_S:.S=.o) $(SRC2_C:.c=.o))
+
+all: $(BUILD)/mt2502a.bin
+	
+
+$(BUILD)/mt2502a.bin: $(BUILD)/mt2502a.elf
+	$(OBJCOPY) -S -O binary $(BUILD)/mt2502a.elf $@
+	$(OBJDUMP) -d -t -C  $(BUILD)/mt2502a.elf >  $(BUILD)/asm_mt2502a.txt
+
+$(BUILD)/mt2502a.elf: $(OBJ2)
+	$(LD) $(LDFLAGS) -T $(LSCRIPT_2) --entry=reset_handler -o $@ $(OBJ2) $(LIBS)
+
+$
+
+
+

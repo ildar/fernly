@@ -10,7 +10,7 @@
 	sc_read32 SPI_CTRL1_BUS_IDLE, SPI_CTRL1_BUS_IDLE, SPI_CTRL1
 
 	/* Turn on block mode */
-        sc_write32 SPI_BLOCKMODE_ENABLE, SPI_BLOCKMODE_ENABLE, SPI_BLOCKMODE
+    sc_write32 SPI_BLOCKMODE_ENABLE, SPI_BLOCKMODE_ENABLE, SPI_BLOCKMODE
 
 	/* Trigger the transfer */
 	sc_write32 \

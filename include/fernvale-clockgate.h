@@ -28,10 +28,10 @@
 // control set 1
 #define CLKGATE_SYS_CTL1      (0xA0010000 + 0x0304)
 #define CLKGATE_SYS_CTL1_SET  (0xA0010000 + 0x0314)
-#define CLKGATE_SYS_CTL2_CLR  (0xA0010000 + 0x0328)
+#define CLKGATE_SYS_CTL1_CLR  (0xA0010000 + 0x0324)
 
 #define CLKGATE_CTL1_SEJ          0x0001
-#define CLKGATE_CTL1_DMA	  0x0002
+#define CLKGATE_CTL1_DMA	      0x0002
 #define CLKGATE_CTL1_USB          0x0004
 #define CLKGATE_CTL1_MSDC         0x0008
 #define CLKGATE_CTL1_SIM          0x0010
@@ -46,7 +46,7 @@
 // control set 2
 #define CLKGATE_SYS_CTL2      (0xA0010000 + 0x0308)
 #define CLKGATE_SYS_CTL2_SET  (0xA0010000 + 0x0318)
-#define CLKGATE_SYS_CTL1_CLR  (0xA0010000 + 0x0324)
+#define CLKGATE_SYS_CTL2_CLR  (0xA0010000 + 0x0328)
 
 #define CLKGATE_CTL2_PWM          0x0001 
 #define CLKGATE_CTL2_BTIF         0x0002

@@ -11,6 +11,7 @@
 
 #define AUTOMATED
 
+
 #if !defined(AUTOMATED)
 #define PROMPT "fernly> "
 
@@ -85,7 +86,7 @@ static int serial_get_line(char *bfr, int len)
 }
 #endif
 
-static int list_registers(void)
+/*static int list_registers(void)
 {
 	int var;
 
@@ -182,7 +183,7 @@ static int list_registers(void)
 	serial_puts("\n");
 
 	return 0;
-}
+}*/
 
 static int shell_run_command(char *line);
 static int do_init(void)
@@ -201,14 +202,9 @@ static int do_init(void)
 	//writew(0x2, PMIC_CTRL9);
 
 	//scriptic_run("set_plls");
-	//scriptic_run("enable_psram");
-	//serial_puts("\n\nFernly shell\n");
-	//shell_run_command("bl 5");
-	//shell_run_command("lcd init");
-	//shell_run_command("lcd tpd");
 
-	/* Initialize the keypad */
-	//scriptic_run("set_kbd");
+	//serial_puts("\n\nFernly shell\n");
+
 
 	return 0;
 }

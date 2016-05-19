@@ -2,8 +2,8 @@
 #include "utils.h"
 
 void reset_handler(void) {
-	extern int main(int argc, char **argv);
-	serial_puts("Reset exception\n");
+	//extern int main(int argc, char **argv);
+	//serial_puts("Reset exception\n");
 	main(1, 0);
 	return;
 }

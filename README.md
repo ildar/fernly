@@ -1,18 +1,24 @@
-Fernly - Fernvale Reversing OS
+Fernly - Fernvale Reversing OS for rephone MT2502A
 ========================================
 
 Fernly is a simple operating system designed for use in the reverse engineering
 of the Fernvale CPU.  It will likely be disposed of when the system has been
 understood well enough to implement a full operating system.
 
+This is a port for the rephone based on a MT2502A
+
+	http://www.seeed.cc/rephone/
+
+
 
 Setting up cross compilation
 ----------------------------
 ### Linux
 
-    git clone https://github.com/robertfoss/setup_codesourcery.git
-    sudo setup_codesourcery/setup.sh
-    /usr/local/bin/codesourcery-arm-2014.05.sh
+Download the arm gcc compiler from
+
+    https://launchpad.net/gcc-arm-embedded/+milestone/4.9-2014-q4-major
+   
 
 
 Building Fernly
@@ -29,23 +35,10 @@ For example:
 Running Fernly
 --------------
 
-To run, connect the target device and run the following command:
+Run the following command and connect the target device
 
-    ./build/fernly-usb-loader -s /dev/fernvale ./build/usb-loader.bin ./build/firmware.bin
+    ./firmwareUploader.py --native
 
-This will open up /dev/fernvale, load usb-loader.bin as a stage 1 bootloader,
-and then load (and jump to) firmware.bin as stage 2.  Optionally, you can add
-a stage 3 file by specifying it as an additional argument.
-
-Many 3rd-party devices enter bootloader mode only for a short window (~1s)
-after being connected to USB. A device almost certainly should be "off". Some
-devices require that battery is removed, while some - don't. To accommodate
-such cases, there's -w (wait) option. Run fernly-usb-loader, and only
-then connect a device to USB. This will allow to try various combinations
-mentioned above with greater comfort (you need to disconnect and poweroff
-device after each try, and restart fernly-usb-loader).
-
-    ./build/fernly-usb-loader -w -s /dev/ttyUSB0 ./build/usb-loader.bin ./build/firmware.bin
 
 Linux Notes
 -----------
@@ -122,7 +115,9 @@ the "runtime exception".
 
 Memory Map
 ----------
+0x70003f58
 
+0000000070003f54 = 0xfff000a8
    
 | 0x00000000 | 0x0fffffff | 0x0fffffff | PSRAM map, repeated and mirrored at 0x00800000 offsets               |
 | ---------- | ---------- | ---------- | ----------------------------------- |

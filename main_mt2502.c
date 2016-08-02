@@ -9,7 +9,7 @@
 
 #include "fernvale-pmic.h"
 
-#define AUTOMATED
+//#define AUTOMATED
 
 
 #if !defined(AUTOMATED)

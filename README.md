@@ -37,8 +37,34 @@ Running Fernly
 
 Run the following command and connect the target device
 
-    ./firmwareUploader.py --native
+    ./firmwareUploader.py --firmPath /home/user/build/mt2502a.bin  --nobat --native
 
+
+Connect the port **/dev/ttyUSB0**
+
+	fenly>help
+	Fernly shell help.  Available commands:                                         
+        help    Print help about available commands                             
+        hex     Print area of memory as hex                                     
+        peek    Look at one area of memory                                      
+        poke    Write a value to an area of memory                              
+        spi     Manipulate on-board SPI                                         
+        spi_raw Manipulate on-board SPI (raw interface)                         
+        led     Turn the on-board LED on or off                                 
+        load    Load data to a specific area in memory                          
+        loadjmp Load data to a specific area in memory, then jump to it         
+	fernly> 
+	
+Help
+
+	fernly> led                                                                     
+	Usage: led  [0 = green 1 = red 2 = blue] [1 = on, 0 = off]                      
+	fernly> 
+
+Switch Led on
+	
+	fernly> led 1 1                                                                 
+	fernly> 	
 
 Linux Notes
 -----------
@@ -59,9 +85,9 @@ called 98-fernvale.rules with the following contents:
         ATTRS{idProduct}=="0003",\
         ENV{ID_MM_DEVICE_IGNORE}="1"
 
-OSX Notes
+OSX 10.11.6 
 ---------
-The default OSX CDC matching seems to miss the Fernvale board. Use [fernvale-osx-codeless](https://github.com/jacobrosenthal/fernvale-osx-codeless) to get a com port.
+The default OSX CDC matches as **/dev/cu.usbmodem1410** or **/dev/cu.usbmodem1420** 
 
 
 SPI and Flashrom
@@ -115,9 +141,7 @@ the "runtime exception".
 
 Memory Map
 ----------
-0x70003f58
 
-0000000070003f54 = 0xfff000a8
    
 | 0x00000000 | 0x0fffffff | 0x0fffffff | PSRAM map, repeated and mirrored at 0x00800000 offsets               |
 | ---------- | ---------- | ---------- | ----------------------------------- |

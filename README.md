@@ -29,7 +29,8 @@ the prefix of your cross compiler.  This is very similar to how to compile for L
 
 For example:
 
-    make CROSS_COMPILE=arm-none-linux-gnueabi-
+     make CROSS_COMPILE= <path>/gcc-arm-none-eabi-4_9-2014q4/bin/arm-none-eabi-
+    
 
 
 Running Fernly
@@ -37,7 +38,7 @@ Running Fernly
 
 Run the following command and connect the target device
 
-    ./firmwareUploader.py --firmPath /home/user/build/mt2502a.bin  --nobat --native
+    ./firmwareUploader.py --firmPath ./build/mt2502a.bin  --nobat --native
 
 
 Connect the port **/dev/ttyUSB0**

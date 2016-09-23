@@ -4,3 +4,6 @@
 *~
 fernly.log
 *.bin
+.pydevproject
+**/.DS_Store
+

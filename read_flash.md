@@ -14,13 +14,13 @@ Build the flashrom tool from source with fernly support
 	make WARNERROR=no
 
 
-#3. Load Rephone
+#3. Load Rephone 
 
 Upload the mt2502a.bin into the device.
 
 	./firmwareUploader.py --firmPath ./bin/mt2502a.bin  --nobat --native
 
-#3. Run
+#3. Read the flash
 
 	./flashrom --programmer fernvale_spi:dev=/dev/ttyUSB0 --read flash.dat
 
@@ -47,4 +47,19 @@ Reading 16MB of flash to take up to 10 minutes !!!
 	Thanks for your help!
 	Reading flash... done.
 
+#5 Set EMEI
 
+Start the device and open /dev/ttyACM0 with minicom
+
+Get the EMEI
+
+	AT+EGMR=0,7                                                 
+	+EGMR: "<your imei>" 
+
+	
+Set EMEI
+
+	AT+EGMR=1,7,"<new imei>"
+
+Reboot your device.
+	
